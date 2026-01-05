@@ -2,7 +2,8 @@
 My customized zsh prompt.
 
 The customized prompt can be installed manually or through the install.sh script.
-If you run the install.sh don't forget the next steps.
+
+If you run the install.sh script don't forget the next steps.
 
 <img width="429" height="137" alt="image" src="https://github.com/user-attachments/assets/3d974ef3-4fec-4ed0-9868-d92aa8568b77" />
 
@@ -152,7 +153,7 @@ echo '{
 }' >> /Users/$USER/Library/Application\ Support/Cursor/User/settings.json
 ```
 
-## 🎨 Adding your prompt colors
+## Adding your prompt colors
 
 Edit the ```.p10k.zsh``` file and add your own color values, or run the following command to apply my color settings:
 
@@ -175,7 +176,7 @@ To apply the changes:
 source  ~/.p10k.zsh
 ```
 
-## 🎨 Customized LS-output
+## Customized LS-output
 
 Edit the ```.zshrc``` file
 ```bash
