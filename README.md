@@ -3,7 +3,7 @@ My customized zsh prompt.
 
 <img width="429" height="137" alt="image" src="https://github.com/user-attachments/assets/3d974ef3-4fec-4ed0-9868-d92aa8568b77" />
 
-## ⚠️ Software Requirements
+## ⚠️ Dependencies
 - VS code (Cursor)
 - Xcode
 - homebrew
