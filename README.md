@@ -17,25 +17,24 @@ Creation of a customized zshell prompt.
 
 ### Install
 
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"```
 
 ### Homebrew to PATH (Apple Silicon)
 
-echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
-eval "$(/opt/homebrew/bin/brew shellenv)"
+```echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile ```
+```eval "$(/opt/homebrew/bin/brew shellenv)" ```
 
-### install wget
+### Install wget
 
-brew update
+```brew install wget```
 
 ### upgrade all installed brew packages to the latest version
 
-brew upgrade
+```brew upgrade```
 
 ### uninstall an existing package
 
-brew uninstall font-meslo-lg-nerd-font 
-
+```brew uninstall font-meslo-lg-nerd-font```
 
 ## Ohmyzsh
 
