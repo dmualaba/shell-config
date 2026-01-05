@@ -1,7 +1,7 @@
 # shell-config
 Creation of a customized zshell prompt. 
 
-## Requirements to get the prompt shown below:
+## ⚠️ Requirements to get the prompt shown below:
 - VS code (Cursor)
 - Xcode
 - homebrew
@@ -11,7 +11,7 @@ Creation of a customized zshell prompt.
 <img width="430" height="29" alt="image" src="https://github.com/user-attachments/assets/3eeff40b-39b3-4f8d-b470-7b8ee748abd0" />
 
 
-# Software installation
+# 🔧 Software installation
 
 ## Setup Brew (package manager for macOS)
 
