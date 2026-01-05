@@ -14,7 +14,7 @@ My customized zsh prompt.
 # 🔧 Script install
 
  ```bash
-source ./install.sh
+./install.sh
 ```
 
 ## Next steps
