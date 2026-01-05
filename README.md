@@ -1,11 +1,6 @@
 # shell-config
 My customized zsh prompt.
 
-The customized prompt can be installed manually or
-through the ```bash install.sh``` script.
-
-If you run the install.sh script don't forget the next steps.
-
 <img width="429" height="137" alt="image" src="https://github.com/user-attachments/assets/3d974ef3-4fec-4ed0-9868-d92aa8568b77" />
 
 ## ⚠️ Software Requirements
@@ -16,8 +11,19 @@ If you run the install.sh script don't forget the next steps.
 - powerlevel10k
 - eza
 
+# 🔧 Script install
 
-# 🔧 Software installation
+ ```bash
+source ./install.sh
+```
+
+## Next steps
+1. Run: source ~/.zshrc"
+2. Follow the instructions to configure Powerlevel10k"
+3. Reload your shell configuration: source ~/.p10k.zsh"
+4. If something doesn't work, run: source ~/.zshrc again"
+
+# 🔧 Manual installation
 
 ## Setup Brew (package manager for macOS)
 
