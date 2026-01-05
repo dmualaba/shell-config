@@ -1,0 +1,14 @@
+{
+    "window.commandCenter": true,
+    "workbench.colorTheme": "Cursor Dark High Contrast",
+    "terminal.integrated.fontFamily": "MesloLGS NF",
+    "terminal.integrated.minimumContrastRatio": 1,
+    "workbench.colorCustomizations": {
+        "terminal.ansiGreen": "#00ff00",
+        "terminal.ansiBrightGreen": "#00ff00",
+        "terminal.ansiYellow": "#ffff00",
+        "terminal.ansiBrightYellow": "#ffff00",
+        "terminal.selectionBackground": "#ff0087",
+        "terminal.selectionForeground": "#000000"
+    }
+}
