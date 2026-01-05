@@ -155,24 +155,63 @@ VSCODE_SETTINGS="/Users/$USER/Library/Application Support/Cursor/User/settings.j
 # Create directory if it doesn't exist
 mkdir -p "$(dirname "$VSCODE_SETTINGS")"
 
-# Overwrite settings.json with exact content
-log_info "Overwriting settings.json with configuration"
+# Merge settings.json - add/update keys while preserving existing ones
+log_info "Updating settings.json configuration (preserving existing settings)"
 backup_file "$VSCODE_SETTINGS"
-cat > "$VSCODE_SETTINGS" << 'EOF'
-{
-    "window.commandCenter": true,
+python3 << EOF
+import json
+import os
+
+settings_path = "$VSCODE_SETTINGS"
+
+# Load existing settings or start with empty dict
+try:
+    with open(settings_path, 'r') as f:
+        settings = json.load(f)
+except (FileNotFoundError, json.JSONDecodeError):
+    settings = {}
+
+# Define the settings to add/update
+new_settings = {
+    "window.commandCenter": True,
     "workbench.colorTheme": "Cursor Dark High Contrast",
     "terminal.integrated.fontFamily": "MesloLGS NF",
-    "terminal.integrated.minimumContrastRatio": 1,
-    "workbench.colorCustomizations": {
-        "terminal.ansiGreen": "#00ff00",
-        "terminal.ansiBrightGreen": "#00ff00",
-        "terminal.ansiYellow": "#ffff00",
-        "terminal.ansiBrightYellow": "#ffff00",
-        "terminal.selectionBackground": "#ff0087",
-        "terminal.selectionForeground": "#000000"
-    }
+    "terminal.integrated.minimumContrastRatio": 1
 }
+
+# Merge top-level settings
+for key, value in new_settings.items():
+    if key in settings and settings[key] != value:
+        print(f"Updating {key}: {settings[key]} -> {value}")
+    elif key not in settings:
+        print(f"Adding {key}: {value}")
+    settings[key] = value
+
+# Handle nested colorCustomizations
+if "workbench.colorCustomizations" not in settings:
+    settings["workbench.colorCustomizations"] = {}
+
+color_customs = {
+    "terminal.ansiGreen": "#00ff00",
+    "terminal.ansiBrightGreen": "#00ff00",
+    "terminal.ansiYellow": "#ffff00",
+    "terminal.ansiBrightYellow": "#ffff00",
+    "terminal.selectionBackground": "#ff0087",
+    "terminal.selectionForeground": "#000000"
+}
+
+for key, value in color_customs.items():
+    if key in settings["workbench.colorCustomizations"] and settings["workbench.colorCustomizations"][key] != value:
+        print(f"Updating workbench.colorCustomizations.{key}: {settings['workbench.colorCustomizations'][key]} -> {value}")
+    elif key not in settings["workbench.colorCustomizations"]:
+        print(f"Adding workbench.colorCustomizations.{key}: {value}")
+    settings["workbench.colorCustomizations"][key] = value
+
+# Write back the merged settings
+with open(settings_path, 'w') as f:
+    json.dump(settings, f, indent=4)
+
+print("Settings.json updated successfully")
 EOF
 log_info "Settings.json configured successfully"
 
