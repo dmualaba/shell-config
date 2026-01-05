@@ -1,7 +1,9 @@
 # shell-config
-Creation of a customized zshell prompt. 
+My customized zsh prompt.
 
-## Requirements to get the prompt shown below:
+<img width="429" height="137" alt="image" src="https://github.com/user-attachments/assets/3d974ef3-4fec-4ed0-9868-d92aa8568b77" />
+
+## ⚠️ Requirements to get the prompt shown below:
 - VS code (Cursor)
 - Xcode
 - homebrew
@@ -11,20 +13,20 @@ Creation of a customized zshell prompt.
 <img width="430" height="29" alt="image" src="https://github.com/user-attachments/assets/3eeff40b-39b3-4f8d-b470-7b8ee748abd0" />
 
 
-# Software installation
+# 🔧 Software installation
 
 ## Setup Brew (package manager for macOS)
 
-### Install
+### install
 
 ```/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"```
 
-### Homebrew to PATH (Apple Silicon)
+### brew to PATH (Apple Silicon)
 
 ```echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile ```
 ```eval "$(/opt/homebrew/bin/brew shellenv)" ```
 
-### Install wget
+### install wget
 
 ```brew install wget```
 
