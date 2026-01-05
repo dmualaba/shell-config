@@ -68,7 +68,8 @@ To make the fonts available in your vscode, you have to edit the settings.json f
 echo '{
     "window.commandCenter": true,
     "workbench.colorTheme": "Cursor Dark High Contrast",
-    "terminal.integrated.fontFamily": "MesloLGS NF"
+    "terminal.integrated.fontFamily": "MesloLGS NF",
+
 ```
 
 ### install ohmyzsh
@@ -98,6 +99,12 @@ echo "source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme" >> ~/
 omz reload
 ```
 
+## eza
+```bash
+brew install eza
+```
+
+
 # 🔧 Configuration
 
 ## Ohmyzsh
@@ -121,7 +128,7 @@ follow the wizard of the following command:
 p10k configure
 ```
 
-# Adding customized colors
+# 🎨 Adding customized colors
 
 It is recommended to add the configuration below to your ```settings.json```, as vscode may override your color selections.
 For example, if vscode already defines a similar color with slight differences, it may enforce its own value. Additionally, if vscode determines that your chosen color negatively affects readability, it may ignore your selection and retain its default color. To prevent this behavior, you must add the following configuration parameters. 
@@ -142,7 +149,7 @@ echo '{
 }' >> /Users/$USER/Library/Application\ Support/Cursor/User/settings.json
 ```
 
-## Adding your prompt colors
+## 🎨 Adding your prompt colors
 
 Edit the ```.p10k.zsh``` file and add your own color values, or run the following command to apply my color settings:
 
@@ -164,6 +171,30 @@ To apply the changes:
 ```bash 
 source  ~/.p10k.zsh
 ```
+
+## 🎨 Customized LS-output
+
+Edit the ```.zshrc``` file
+```bash
+echo 'alias ls="eza -l --group --icons --color=always"
+export EZA_COLORS="\
+di=38;5;44:fi=38;5;208:ex=38;5;129:ln=38;5;45:or=38;5;196:\
+uu=38;2;255;0;135:un=38;2;255;0;135:\
+gu=38;2;255;255;0:gn=38;2;255;255;0:\
+ur=38;2;29;255;149:gr=38;2;29;255;149:tr=38;2;29;255;149:\
+uw=38;2;255;172;186:gw=38;2;255;172;186:tw=38;2;255;172;186:\
+ux=38;2;165;213;255:gx=38;2;165;213;255:tx=38;2;165;213;255:\
+ue=38;2;165;213;255:ge=38;2;165;213;255:te=38;2;165;213;255"' >> vi ~/.zshrc 
+```
+
+To apply changes:
+
+```bash
+source vi ~/.zshrc 
+````
+
+
+
 
 
 
