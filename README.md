@@ -17,7 +17,7 @@ My customized zsh prompt.
 ./install.sh
 ```
 
-## Next steps
+#### Next steps
 1. Run: source ~/.zshrc"
 2. Follow the instructions to configure Powerlevel10k"
 3. Reload your shell configuration: source ~/.p10k.zsh"
