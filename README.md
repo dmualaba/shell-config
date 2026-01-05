@@ -27,7 +27,7 @@ My customized zsh prompt.
 
 ## Setup Brew (package manager for macOS)
 
-### install
+#### install
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -160,7 +160,7 @@ echo '{
 }' >> /Users/$USER/Library/Application\ Support/Cursor/User/settings.json
 ```
 
-## Adding your prompt colors
+#### Adding your prompt colors
 
 Edit the ```.p10k.zsh``` file and add your own color values, or run the following command to apply my color settings:
 
@@ -183,7 +183,7 @@ To apply the changes:
 source  ~/.p10k.zsh
 ```
 
-## Customized ls-output
+#### Customized ls output
 
 Edit the ```.zshrc``` file
 ```bash
