@@ -1,7 +1,8 @@
 # shell-config
 My customized zsh prompt.
 
-The customized prompt can be installed manually or through the install.sh script.
+The customized prompt can be installed manually or
+through the ```bash install.sh``` script.
 
 If you run the install.sh script don't forget the next steps.
 
