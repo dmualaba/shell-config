@@ -121,7 +121,7 @@
 
 ---
 
-## VS Code/Cursor Configuration (Lines 151-201)
+## VS Code/Cursor Configuration (Lines 151-232)
 
 **Line 152:** Section header
 
@@ -131,31 +131,47 @@
 **Line 156:** Creates directory structure if it doesn't exist
 - `mkdir -p`: creates parent directories as needed
 
-**Lines 159-162:** Initializes settings.json if missing
-- Creates empty JSON object `{}` if file doesn't exist
-
-**Lines 165-201:** Adds terminal font and color settings
-- Checks if font family is already configured
-- Backs up existing settings file
-- Uses Python3 to safely merge JSON (preserves existing settings)
-- Python script:
-  - Loads existing settings or starts with empty dict
-  - `setdefault()`: creates nested dicts if they don't exist
-  - Sets terminal font, colors, and theme
-  - Writes formatted JSON back to file
+**Lines 158-232:** Merges terminal font and color settings (preserves all existing settings)
+- **Critical**: This section merges settings, NOT overwrites - all existing keys are preserved
+- Backs up existing settings file before making changes
+- Uses Python3 to safely merge JSON settings
+- Python script process:
+  - **Lines 167-176**: Loads existing settings.json file (or starts with empty dict if file doesn't exist)
+    - `json.load()`: parses JSON into Python dictionary
+    - Handles FileNotFoundError (file doesn't exist) and JSONDecodeError (invalid JSON)
+  - **Lines 181-187**: Defines only the specific top-level keys to update/add:
+    - `window.commandCenter`
+    - `workbench.colorTheme`
+    - `terminal.integrated.fontFamily`
+    - `terminal.integrated.minimumContrastRatio`
+  - **Lines 189-198**: Updates/adds only the specified top-level keys
+    - Checks if key exists and value differs before updating
+    - Prints messages indicating what's being added or updated
+    - **Preserves all other existing top-level keys** in the settings file
+  - **Lines 200-203**: Handles nested `workbench.colorCustomizations` object
+    - Creates the object if it doesn't exist
+    - Preserves any existing color customizations
+  - **Lines 205-213**: Defines only the specific color customization keys to update/add
+  - **Lines 215-224**: Updates/adds only the specified color customization keys
+    - **Preserves all other existing keys** within `colorCustomizations`
+  - **Lines 226-230**: Writes the merged settings back to file
+    - `json.dump()`: writes dictionary as formatted JSON
+    - `indent=4`: pretty-prints with 4-space indentation
+    - `ensure_ascii=False`: preserves non-ASCII characters (like emojis if present)
+    - **All existing keys that weren't updated are preserved** in the output
 
 ---
 
-## Oh My Zsh Installation (Lines 203-230)
+## Oh My Zsh Installation (Lines 234-261)
 
-**Line 204:** Section header
+**Line 235:** Section header
 
-**Lines 205-210:** Oh My Zsh installation check
+**Lines 236-241:** Oh My Zsh installation check
 - Checks if `.oh-my-zsh` directory exists
 - If not: runs official installer script
 - `--unattended`: prevents interactive prompts
 
-**Lines 213-230:** Plugin installation
+**Lines 243-261:** Plugin installation
 - `ZSH_CUSTOM`: custom directory for Oh My Zsh plugins
 - `${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}`: uses ZSH_CUSTOM if set, otherwise default
 - Checks if plugin directories exist before cloning
@@ -165,21 +181,21 @@
 
 ---
 
-## Powerlevel10k Installation (Lines 232-239)
+## Powerlevel10k Installation (Lines 263-270)
 
-**Lines 232-239:** Powerlevel10k theme installation
+**Lines 263-270:** Powerlevel10k theme installation
 - Checks if installed via Homebrew (`brew list` checks package list)
 - Installs via Homebrew if not found
 
 ---
 
-## .zshrc Configuration (Lines 241-288)
+## .zshrc Configuration (Lines 272-320)
 
-**Line 242:** Section header
+**Line 273:** Section header
 
-**Lines 243-246:** Creates `.zshrc` if it doesn't exist
+**Lines 274-278:** Creates `.zshrc` if it doesn't exist
 
-**Lines 248-264:** Adds Oh My Zsh configuration
+**Lines 280-296:** Adds Oh My Zsh configuration
 - Checks if each configuration exists before adding:
   - `ZSH` environment variable
   - `compinit` (completion system)
@@ -187,12 +203,12 @@
   - Plugin list
 - Uses `safe_append` to prevent duplicates
 
-**Lines 266-272:** Adds Powerlevel10k theme source
+**Lines 298-304:** Adds Powerlevel10k theme source
 - Checks if theme is already sourced
 - `$(brew --prefix)`: gets Homebrew installation prefix
 - Appends source line to `.zshrc`
 
-**Lines 274-288:** Adds eza alias configuration
+**Lines 306-320:** Adds eza alias configuration
 - Creates alias: `ls` → `eza` with options
 - Sets `EZA_COLORS` environment variable for custom colors
 - Uses heredoc (`<< 'EOF'`): `'EOF'` prevents variable expansion
@@ -200,20 +216,20 @@
 
 ---
 
-## eza Installation (Lines 290-297)
+## eza Installation (Lines 322-329)
 
-**Lines 290-297:** Installs eza (modern `ls` replacement)
+**Lines 322-329:** Installs eza (modern `ls` replacement)
 - Checks if command exists, installs via Homebrew if not
 
 ---
 
-## Powerlevel10k Color Configuration (Lines 299-323)
+## Powerlevel10k Color Configuration (Lines 331-355)
 
-**Line 300:** Section header
+**Line 332:** Section header
 
-**Line 301:** Sets path to Powerlevel10k config file
+**Line 333:** Sets path to Powerlevel10k config file
 
-**Lines 303-323:** Applies custom colors
+**Lines 335-355:** Applies custom colors
 - Checks if `.p10k.zsh` exists
 - If not: warns user to run `p10k configure` first
 - If exists: backs up file and applies color changes using `sed`
@@ -225,9 +241,9 @@
 
 ---
 
-## Final Instructions (Lines 325-334)
+## Final Instructions (Lines 357-367)
 
-**Lines 326-334:** Completion message
+**Lines 357-367:** Completion message
 - Prints installation complete message
 - Provides next steps:
   1. Run `p10k configure` if needed
