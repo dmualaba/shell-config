@@ -160,38 +160,50 @@ log_info "Updating settings.json configuration (preserving existing settings)"
 backup_file "$VSCODE_SETTINGS"
 python3 << EOF
 import json
-import os
 
 settings_path = "$VSCODE_SETTINGS"
 
 # Load existing settings or start with empty dict
 try:
-    with open(settings_path, 'r') as f:
+    with open(settings_path, 'r', encoding='utf-8') as f:
         settings = json.load(f)
-except (FileNotFoundError, json.JSONDecodeError):
+    print(f"Loaded existing settings with {len(settings)} top-level keys")
+except FileNotFoundError:
+    settings = {}
+    print("Creating new settings file")
+except json.JSONDecodeError as e:
+    print(f"Error parsing JSON: {e}")
     settings = {}
 
-# Define the settings to add/update
-new_settings = {
+# Count existing keys before merge
+existing_keys_count = len(settings)
+
+# Define the settings to add/update (only these specific keys)
+keys_to_update = {
     "window.commandCenter": True,
     "workbench.colorTheme": "Cursor Dark High Contrast",
     "terminal.integrated.fontFamily": "MesloLGS NF",
     "terminal.integrated.minimumContrastRatio": 1
 }
 
-# Merge top-level settings
-for key, value in new_settings.items():
-    if key in settings and settings[key] != value:
-        print(f"Updating {key}: {settings[key]} -> {value}")
-    elif key not in settings:
-        print(f"Adding {key}: {value}")
+# Update/add only the specified top-level keys (preserves all other existing keys)
+for key, value in keys_to_update.items():
+    if key in settings:
+        if settings[key] != value:
+            print(f"Updating {key}: {settings[key]} -> {value}")
+        else:
+            print(f"Key {key} already has correct value")
+    else:
+        print(f"Adding new key: {key}")
     settings[key] = value
 
-# Handle nested colorCustomizations
+# Handle nested workbench.colorCustomizations - preserve existing values
 if "workbench.colorCustomizations" not in settings:
     settings["workbench.colorCustomizations"] = {}
+    print("Creating workbench.colorCustomizations object")
 
-color_customs = {
+# Define the color customizations to add/update (preserves all other existing color customizations)
+color_customs_to_update = {
     "terminal.ansiGreen": "#00ff00",
     "terminal.ansiBrightGreen": "#00ff00",
     "terminal.ansiYellow": "#ffff00",
@@ -200,18 +212,22 @@ color_customs = {
     "terminal.selectionForeground": "#000000"
 }
 
-for key, value in color_customs.items():
-    if key in settings["workbench.colorCustomizations"] and settings["workbench.colorCustomizations"][key] != value:
-        print(f"Updating workbench.colorCustomizations.{key}: {settings['workbench.colorCustomizations'][key]} -> {value}")
-    elif key not in settings["workbench.colorCustomizations"]:
-        print(f"Adding workbench.colorCustomizations.{key}: {value}")
+# Update/add only the specified color customization keys (preserves all other existing keys in colorCustomizations)
+for key, value in color_customs_to_update.items():
+    if key in settings["workbench.colorCustomizations"]:
+        if settings["workbench.colorCustomizations"][key] != value:
+            print(f"Updating workbench.colorCustomizations.{key}: {settings['workbench.colorCustomizations'][key]} -> {value}")
+        else:
+            print(f"Key workbench.colorCustomizations.{key} already has correct value")
+    else:
+        print(f"Adding new key: workbench.colorCustomizations.{key}")
     settings["workbench.colorCustomizations"][key] = value
 
-# Write back the merged settings
-with open(settings_path, 'w') as f:
-    json.dump(settings, f, indent=4)
+# Write back the merged settings (preserving ALL existing keys - only updating the specified ones)
+with open(settings_path, 'w', encoding='utf-8') as f:
+    json.dump(settings, f, indent=4, ensure_ascii=False)
 
-print("Settings.json updated successfully")
+print(f"Settings.json updated successfully - preserved all existing settings (now {len(settings)} top-level keys)")
 EOF
 log_info "Settings.json configured successfully"
 
@@ -256,6 +272,7 @@ fi
 # Configure .zshrc
 log_info "=== Configuring .zshrc ==="
 if ! file_exists "$HOME/.zshrc"; then
+
     log_info "Creating .zshrc file"
     touch "$HOME/.zshrc"
 fi
