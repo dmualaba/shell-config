@@ -25,7 +25,7 @@ My customized zsh prompt.
 
 # 🔧 Manual installation
 
-## Setup Brew (package manager for macOS)
+## Setup Brew
 
 #### install
 
