@@ -155,50 +155,26 @@ VSCODE_SETTINGS="/Users/$USER/Library/Application Support/Cursor/User/settings.j
 # Create directory if it doesn't exist
 mkdir -p "$(dirname "$VSCODE_SETTINGS")"
 
-# Initialize settings.json if it doesn't exist
-if ! file_exists "$VSCODE_SETTINGS"; then
-    log_info "Creating $VSCODE_SETTINGS"
-    echo '{}' > "$VSCODE_SETTINGS"
-fi
-
-# Check and add terminal font family
-if ! file_contains "$VSCODE_SETTINGS" '"terminal.integrated.fontFamily"'; then
-    log_info "Adding terminal font family to settings.json"
-    # This is a simplified approach - for complex JSON manipulation, consider using jq
-    backup_file "$VSCODE_SETTINGS"
-    python3 << EOF
-import json
-import sys
-
-settings_path = "$VSCODE_SETTINGS"
-
-try:
-    with open(settings_path, 'r') as f:
-        settings = json.load(f)
-except:
-    settings = {}
-
-settings.setdefault('window', {})['commandCenter'] = True
-settings.setdefault('workbench', {})['colorTheme'] = 'Cursor Dark High Contrast'
-settings.setdefault('terminal', {}).setdefault('integrated', {})['fontFamily'] = 'MesloLGS NF'
-settings.setdefault('terminal', {}).setdefault('integrated', {})['minimumContrastRatio'] = 1
-
-color_customizations = settings.setdefault('workbench', {}).setdefault('colorCustomizations', {})
-color_customizations['terminal.ansiGreen'] = '#00ff00'
-color_customizations['terminal.ansiBrightGreen'] = '#00ff00'
-color_customizations['terminal.ansiYellow'] = '#ffff00'
-color_customizations['terminal.ansiBrightYellow'] = '#ffff00'
-color_customizations['terminal.selectionBackground'] = '#ff0087'
-color_customizations['terminal.selectionForeground'] = '#000000'
-
-with open(settings_path, 'w') as f:
-    json.dump(settings, f, indent=4)
-
-print("Settings updated successfully")
+# Overwrite settings.json with exact content
+log_info "Overwriting settings.json with configuration"
+backup_file "$VSCODE_SETTINGS"
+cat > "$VSCODE_SETTINGS" << 'EOF'
+{
+    "window.commandCenter": true,
+    "workbench.colorTheme": "Cursor Dark High Contrast",
+    "terminal.integrated.fontFamily": "MesloLGS NF",
+    "terminal.integrated.minimumContrastRatio": 1,
+    "workbench.colorCustomizations": {
+        "terminal.ansiGreen": "#00ff00",
+        "terminal.ansiBrightGreen": "#00ff00",
+        "terminal.ansiYellow": "#ffff00",
+        "terminal.ansiBrightYellow": "#ffff00",
+        "terminal.selectionBackground": "#ff0087",
+        "terminal.selectionForeground": "#000000"
+    }
+}
 EOF
-else
-    log_warn "Terminal font family already configured in settings.json"
-fi
+log_info "Settings.json configured successfully"
 
 # Install Oh My Zsh
 log_info "=== Installing Oh My Zsh ==="
@@ -326,8 +302,10 @@ fi
 log_info "=== Installation Complete ==="
 echo ""
 log_info "Next steps:"
-echo "  1. If Powerlevel10k configuration is new, run: p10k configure"
+echo "  1. If Powerlevel10k configuration is new, run: p10k configure, if it doesn't work, run: ~/.zshrc"
 echo "  2. Reload your shell configuration: source ~/.zshrc"
+echo "  2. Reload your shell configuration: source ~/.p10k.zsh"
 echo "  3. Or restart your terminal"
 echo ""
 log_info "If you want to manually configure Powerlevel10k colors, edit ~/.p10k.zsh"
+log_info "If you want to manually configure eza/ls colors, edit ~/.zshrc"
