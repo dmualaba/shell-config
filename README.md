@@ -33,7 +33,7 @@ My customized zsh prompt.
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-### brew to PATH (Apple Silicon)
+#### brew to PATH (Apple Silicon)
 
 ```bash
 echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
@@ -43,19 +43,19 @@ echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
 eval "$(/opt/homebrew/bin/brew shellenv)"
 ```
 
-### install wget
+#### install wget
 
 ```bash
 brew install wget
 ```
 
-### upgrade all installed brew packages to the latest version
+#### upgrade all installed brew packages to the latest version
 
 ```bash
 brew upgrade
 ```
 
-### uninstall an existing package
+#### uninstall an existing package
 
 ```bash
 brew uninstall font-meslo-lg-nerd-font
@@ -63,7 +63,7 @@ brew uninstall font-meslo-lg-nerd-font
 
 ## Ohmyzsh
 
-### install fonts
+#### install fonts
 
 ```bash
 wget -P ~/Library/Fonts/ \
@@ -83,20 +83,20 @@ echo '{
 
 ```
 
-### install ohmyzsh
+#### install ohmyzsh
 
 ```bash
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-### install ohmyzsh plugins
+#### install ohmyzsh plugins
 
 ```bash
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 ```
 
-### reload ohmyzsh
+#### reload ohmyzsh
 
 ```bash
 omz reload
@@ -183,7 +183,7 @@ To apply the changes:
 source  ~/.p10k.zsh
 ```
 
-## Customized LS-output
+## Customized ls-output
 
 Edit the ```.zshrc``` file
 ```bash
